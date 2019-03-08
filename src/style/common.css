@@ -1,0 +1,22 @@
+@import "~antd/dist/antd.css";
+
+.container {
+  display: flex;
+}
+
+.nav-left {
+  width: 15%;
+  background-color: #001529;
+  min-width: 180px;
+  height: 100vh;
+}
+
+.main {
+  flex: 1;
+  background-color: #f1f3f5;
+}
+
+.content {
+  position: relative;
+  padding: 20px;
+}
