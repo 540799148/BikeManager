@@ -1,8 +1,9 @@
 import React from 'react';
-import {HashRouter, Route} from 'react-router-dom';
+import {HashRouter, Route, Switch} from 'react-router-dom';
 import App from './App';
 import Login from './pages/login';
 import Buttons from './pages/ui/buttons';
+import Modals from './pages/ui/modals';
 import NoMatch from './pages/nomatch/index';
 import Admin from './admin';
 
@@ -12,13 +13,16 @@ export default class IRouter extends React.Component {
     return (
         <HashRouter>
           <App>
-            <Route path="/login" component={Login} />
-            <Route path="/admin" render={()=>
-              <Admin>
-                <Route path="/admin/ui/buttons" component={Buttons} />
-                <Route component={NoMatch} />
-              </Admin>
-            } />
+            <Route path="/login" component={Login}/>
+            <Route path="/admin" render={() =>
+                <Admin>
+                  <Switch>
+                    <Route path="/admin/ui/buttons" component={Buttons}/>
+                    <Route path="/admin/ui/modals" component={Modals}/>
+                    <Route component={NoMatch}/>
+                  </Switch>
+                </Admin>
+            }/>
           </App>
         </HashRouter>
     )

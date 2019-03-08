@@ -5,7 +5,9 @@ import Util from '../../utils/utils';
 import axios from '../../axios';
 
 export default class Header extends React.Component {
-  state = {};
+  state = {
+    userName: '',
+  };
 
   componentWillMount() {
     this.setState({
@@ -36,6 +38,7 @@ export default class Header extends React.Component {
   }
 
   render() {
+    const {menuName} = this.props;
     return (
         <div className="header">
           <Row className="header-top">
@@ -46,7 +49,7 @@ export default class Header extends React.Component {
           </Row>
           <Row className="breadcrumb">
             <Col span={4} className="breadcrumb-title">
-              首页
+              {menuName || '首页'}
             </Col>
             <Col span={20} className="weather">
               <span className="date">{this.state.sysTime}</span>
