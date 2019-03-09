@@ -16,7 +16,7 @@ const menuList = [
                 key:'/ui/modals',
             },
             {
-                title:'Loading',
+                title:'Loadings',
                 key:'/ui/loadings',
             },
             {
