@@ -6,7 +6,7 @@ import './../ui/ui.css';
 
 const {Option} = Select;
 
-export default class City extends React.Component {
+class City extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -74,7 +74,7 @@ export default class City extends React.Component {
     });
   }
 
-  handleOk = (e) => {
+  handleOk = () => {
     let cityInfo = this.cityForm.props.form.getFieldsValue();
     console.log(cityInfo);
     axios.ajax({
@@ -94,7 +94,7 @@ export default class City extends React.Component {
 
   }
 
-  handleCancel = (e) => {
+  handleCancel = () => {
     // console.log(e);
     this.setState({
       visible: false,
@@ -137,16 +137,22 @@ export default class City extends React.Component {
   }
 
   render() {
+    const {getFieldDecorator} = this.props.form;
     return (
         <div>
           <Card className="card-wrap">
             <Form layout="inline">
               <Form.Item label="城市">
-                <Select defaultValue="beijing" style={{width: 120}}>
-                  <Option value="beijing">北京市</Option>
-                  <Option value="shanghai">上海市</Option>
-                  <Option value="wuhan">武汉市</Option>
-                </Select>
+                {
+                  getFieldDecorator('city')(
+                      <Select style={{width: 120}} placeholder="全部">
+                        {/*<Option value="1">全部</Option>*/}
+                        <Option value="2">武汉市</Option>
+                        <Option value="3">上海市</Option>
+                        <Option value="4">北京市</Option>
+                      </Select>
+                  )
+                }
               </Form.Item>
               <Form.Item label="用车模式">
                 <Select defaultValue="park" style={{width: 160}}>
@@ -198,6 +204,8 @@ export default class City extends React.Component {
     )
   }
 }
+
+export default City = Form.create({})(City);
 
 class OpenCityForm extends React.Component {
   render() {

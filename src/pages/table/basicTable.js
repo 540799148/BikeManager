@@ -181,14 +181,18 @@ export default class BasicTable extends React.Component {
       }
     ]
 
-    const selectedRowKeys = this.state.selectedRowKeys;
+    // const selectedRowKeys = this.state.selectedRowKeys;
     const rowSelection = {
       type: 'radio',
-      selectedRowKeys
+      onChange:(selectedRowKeys)=>{
+        this.setState({
+          selectedRowKeys
+        })
+      }
     }
     const rowCheckSelection = {
       type: 'checkbox',
-      selectedRowKeys,
+      // selectedRowKeys,
       onChange: (selectedRowKeys, selectedRows) => {
         this.setState({
           selectedRowKeys,
@@ -219,13 +223,13 @@ export default class BasicTable extends React.Component {
             <Table
                 bordered
                 rowSelection={rowSelection}
-                onRow={(record, index) => {
-                  return {
-                    onClick: () => {
-                      this.onRowClick(record, index);
-                    }
-                  };
-                }}
+                // onRow={(record, index) => {
+                //   return {
+                //     onClick: () => {
+                //       this.onRowClick(record, index);
+                //     }
+                //   };
+                // }}
                 columns={columns}
                 dataSource={this.state.dataSource2}
                 pagination={false}

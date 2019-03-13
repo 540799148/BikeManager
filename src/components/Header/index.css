@@ -1,31 +1,49 @@
-.header{
+.header {
   background-color: #fff;
 }
 
-.header-top{
+.header-top {
   height: 60px;
   line-height: 60px;
-  padding: 0 20px;
+  padding: 0 40px;
   text-align: right;
 }
 
-.header-top a{
+.header-top .logo {
+  height: 60px;
+  line-height: 60px;
+  text-align: left;
+  font-size: 18px;
+}
+
+.header-top .logo img {
+  width: 40px;
+  vertical-align: middle;
+  padding-bottom: 10px;
+}
+
+.header-top .logo span {
+  font-size: 24px;
+  margin-left: 10px;
+}
+
+.header-top a {
   margin-left: 40px;
 }
 
-.breadcrumb{
+.breadcrumb {
   height: 40px;
   line-height: 40px;
   padding: 0 20px;
   border-top: 1px solid dodgerblue;
 }
 
-.breadcrumb-title{
+.breadcrumb-title {
   text-align: center;
   font-size: 18px;
 }
 
-.breadcrumb-title:after{
+.breadcrumb-title:after {
   position: absolute;
   content: '';
   left: 120px;
@@ -35,10 +53,21 @@
   border-right: 12px solid transparent;
 }
 
-.weather{
+.weather {
   text-align: right;
 }
 
-.date{
+.date {
   margin-right: 10px;
 }
+
+.simple-page .header-top {
+  height: 60px;
+  background: dodgerblue;
+  color: #fff;
+}
+
+.simple-page .header-top a {
+  color: #fff;
+}
+

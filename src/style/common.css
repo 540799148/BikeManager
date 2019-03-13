@@ -1,6 +1,10 @@
 @import "~antd/dist/antd.css";
 @import "./loading.css";
 
+ul li{
+  list-style: none;
+}
+
 .container {
   display: flex;
 }

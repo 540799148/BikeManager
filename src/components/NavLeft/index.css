@@ -1,4 +1,4 @@
-.logo{
+.nav-left .logo{
   height: 90px;
   background-color: #002140;
   display: flex;
@@ -6,12 +6,12 @@
   align-items: center;
 }
 
-.logo img{
+.nav-left .logo img{
   height: 35px;
   padding: 0 10px 0 20px;
 }
 
-.logo h1{
+.nav-left .logo h1{
   color:#fff;
   font-size: 20px;
   margin: 0;
