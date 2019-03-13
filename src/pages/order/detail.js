@@ -27,8 +27,86 @@ export default class Detail extends React.Component {
         this.setState({
           orderInfo: res.result
         })
+        this.renderMap(res.result);
       }
     })
+  }
+
+  renderMap = (result) => {
+    this.map = new window.BMap.Map('orderDetailMap');
+    this.map.enableScrollWheelZoom(true);
+    this.addMapControl();
+    this.dramBikeRoute(result.position_list);
+    this.drawServiceArea(result.area)
+  }
+
+  // add map control
+  addMapControl = () => {
+    let map = this.map;
+    map.addControl(new window.BMap.ScaleControl({anchor: window.BMAP_ANCHOR_TOP_RIGHT}));
+    map.addControl(new window.BMap.NavigationControl({anchor: window.BMAP_ANCHOR_TOP_RIGHT}));
+  }
+
+  // 绘制路线图
+  dramBikeRoute = (positionList) => {
+    let map = this.map;
+    let startPoint = '';
+    let endPoint = '';
+    if (positionList.length > 0) {
+      let first = positionList[0];
+      let last = positionList[positionList.length - 1];
+      startPoint = new window.BMap.Point(first.lon, first.lat);
+      let startIcon = new window.BMap.Icon('/assets/start_point.png', new window.BMap.Size(36, 42), {
+        imagePoint: new window.BMap.Size(36, 42),
+        anchor: new window.BMap.Size(36, 42)
+      });
+
+      let startMarker = new window.BMap.Marker(startPoint, {icon: startIcon});
+      this.map.addOverlay(startMarker);
+
+      endPoint = new window.BMap.Point(last.lon, last.lat);
+      let endIcon = new window.BMap.Icon('/assets/end_point.png', new window.BMap.Size(36, 42), {
+        imagePoint: new window.BMap.Size(36, 42),
+        anchor: new window.BMap.Size(36, 42)
+      });
+
+      let endMarker = new window.BMap.Marker(endPoint, {icon: endIcon});
+      this.map.addOverlay(endMarker);
+
+      // 连接路线图
+      let trackPoint = [];
+      for (let i = 0; i < positionList.length; i++) {
+        let point = positionList[i];
+        trackPoint.push(new window.BMap.Point(point.lon, point.lat));
+      }
+
+      let polyline = new window.BMap.Polyline(trackPoint, {
+        strokeColor: '#1869ad',
+        strokeWeight: 3,
+        strokeOpacity: 1
+      })
+      this.map.addOverlay(polyline);
+      this.map.centerAndZoom(endPoint, 11);
+    }
+  }
+
+
+  drawServiceArea=(positionList)=>{
+    // 连接路线图
+    let trackPoint = [];
+    for (let i = 0; i < positionList.length; i++) {
+      let point = positionList[i];
+      trackPoint.push(new window.BMap.Point(point.lon, point.lat));
+    }
+    // 绘制服务区
+    let polygon = new window.BMap.Polygon(trackPoint, {
+      strokeColor: '#ce0000',
+      strokeWeight: 4,
+      strokeOpacity: 1,
+      fillColor: '#ff8605',
+      fillOpacity: 0.5
+    })
+    this.map.addOverlay(polygon);
   }
 
   render() {
@@ -36,7 +114,7 @@ export default class Detail extends React.Component {
     return (
         <div>
           <Card>
-            {/*<div id="orderDetailMap"></div>*/}
+            <div id="orderDetailMap" className="order-map"></div>
             <div className="detail-items">
               <div className="item-title">基础信息</div>
               <ul className="detail-form">
