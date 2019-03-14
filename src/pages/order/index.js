@@ -161,12 +161,11 @@ class Order extends React.Component {
         if (res.code === 0) {
           this.setState({
             orderInfo: res.result,
-            orderConfirmVisible: true
+            // orderConfirmVisible: true
           })
         }
       })
-    }
-    else if (status === 2) {
+    } else if (status === 2) {
       Modal.info({
         title: '信息',
         content: '订单已经结束'
