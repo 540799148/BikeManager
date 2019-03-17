@@ -1,15 +1,13 @@
 import React from 'react';
-import {Card, Form, Select, DatePicker, Button, Table, Modal, message} from 'antd';
+import {Card, Form, Button, Table, Modal, message} from 'antd';
 import axios from './../../axios/index';
 import Utils from './../../utils/utils';
+import BaseForm from './../../components/BaseForm/index';
 // import moment from 'moment';
 import 'moment/locale/zh-cn';
 import locale from 'antd/lib/date-picker/locale/zh_CN';
 
 // moment.locale('zh-cn');
-
-const Option = Select.Option;
-const {RangePicker} = DatePicker;
 
 class Order extends React.Component {
   constructor(props) {
@@ -111,18 +109,6 @@ class Order extends React.Component {
       })
     })
   }
-  //
-  // info = () => {
-  //   Modal.info({
-  //     title: '温馨提示',
-  //     content: (
-  //         <div>
-  //           <p>该行程订单已结束</p>
-  //         </div>
-  //     ),
-  //   });
-  //   this.request();
-  // }
 
   openOrderDetail = () => {
     let item = this.state.selectedRowKeys;
@@ -194,7 +180,6 @@ class Order extends React.Component {
   }
 
   render() {
-    const {getFieldDecorator} = this.props.form;
     const formItemLayout = {
       labelCol: {span: 5},
       wrapperCol: {span: 19}
@@ -215,46 +200,7 @@ class Order extends React.Component {
     return (
         <div>
           <Card className="card-wrap">
-            <Form layout="inline">
-              <Form.Item label="城市">
-                {
-                  getFieldDecorator('city', {
-                    initialValue: '2'
-                  })(
-                      <Select style={{width: 90}}>
-                        <Option value="1">北京</Option>
-                        <Option value="2">上海</Option>
-                        <Option value="3">天津</Option>
-                        <Option value="4">杭州</Option>
-                      </Select>
-                  )
-                }
-              </Form.Item>
-              <Form.Item>
-                {
-                  getFieldDecorator('time')(
-                      <RangePicker locale={locale}/>
-                  )
-                }
-              </Form.Item>
-              <Form.Item label="订单状态">
-                {
-                  getFieldDecorator('orderState', {
-                    initialValue: '3'
-                  })(
-                      <Select style={{width: 120}}>
-                        <Option value="1">进行中</Option>
-                        <Option value="2">临时锁车</Option>
-                        <Option value="3">行程结束</Option>
-                      </Select>
-                  )
-                }
-              </Form.Item>
-              <Form.Item>
-                <Button type="primary">查询</Button>
-                <Button>重置</Button>
-              </Form.Item>
-            </Form>
+            <BaseForm/>
           </Card>
           <Card>
             <Button type="primary" style={{marginRight: 20}} onClick={this.openOrderDetail}>订单详情</Button>
