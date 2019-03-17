@@ -73,6 +73,30 @@ class Order extends React.Component {
     }
   }
 
+  params = {page: 1}
+
+  formList = [
+    {
+      type: 'SELECT',
+      label: '城市',
+      field: 'city',
+      initialValue: '1',
+      width: 100,
+      list: [{id: '0', name: '全部'}, {id: '1', name: '北京'}, {id: '2', name: '天津'}, {id: '3', name: '上海'}]
+    },
+    {
+      type: '时间查询',
+    },
+    {
+      type: 'SELECT',
+      label: '订单状态',
+      field: 'status',
+      initialValue: '1',
+      width: 100,
+      list: [{id: '0', name: '全部'}, {id: '1', name: '进行中'}, {id: '2', name: '结束行程'}]
+    }
+  ]
+
   componentDidMount() {
     const data = [];
     data.map((item, index) => {
@@ -84,16 +108,17 @@ class Order extends React.Component {
     this.request();
   }
 
-  params = {page: 1}
+  handleFilter = (params) => {
+    this.params = params;
+    this.request();
+  }
 
   request = () => {
     let _this = this;
     axios.ajax({
       url: '/order/list',
       data: {
-        params: {
-          page: this.params.page
-        }
+        params: this.params
       }
     }).then((res) => {
       this.setState({
@@ -200,7 +225,7 @@ class Order extends React.Component {
     return (
         <div>
           <Card className="card-wrap">
-            <BaseForm/>
+            <BaseForm formList={this.formList} filterSubmit={this.handleFilter}/>
           </Card>
           <Card>
             <Button type="primary" style={{marginRight: 20}} onClick={this.openOrderDetail}>订单详情</Button>
