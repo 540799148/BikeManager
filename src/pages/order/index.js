@@ -209,15 +209,16 @@ class Order extends React.Component {
       labelCol: {span: 5},
       wrapperCol: {span: 19}
     }
-    // const selectedRowKeys = this.state.selectedRowKeys;
+    const selectedRowKeys = this.state.selectedRowKeys;
     const rowSelection = {
       columnWidth: '60px',
       type: 'radio',
+      selectedRowKeys,
       onChange: (selectedRowKeys, selectedRows) => {
         // console.log(selectedRows)
         this.setState({
           selectedRowKeys,
-          selectedRow: selectedRows[0]
+          // selectedRow: selectedRows[0]
         })
       }
     };
@@ -237,6 +238,15 @@ class Order extends React.Component {
                 columns={this.state.columns}
                 dataSource={this.state.list}
                 pagination={this.state.pagination}
+                onRow={(record,index)=>{
+                  return {
+                    onClick:()=>{
+                      this.setState({
+                        selectedRowKeys:[index],
+                      })
+                    }
+                  }
+                }}
             />
           </Card>
           <Modal
